@@ -1,0 +1,15 @@
+{
+  "name": "wwc_github_profile",
+  "version": "1.0.0",
+  "description": "Simple Node/Express app that displays bio page and github reposUrl. Done for Women Who Code workshop.",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.13.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
