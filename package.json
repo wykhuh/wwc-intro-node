@@ -13,7 +13,9 @@
     "eslint": "^2.8.0",
     "eslint-config-airbnb": "^7.0.0"
   },
-  "scripts": {},
+  "scripts": {
+    "lint": "node_modules/.bin/eslint ."
+  },
   "author": "",
   "license": "ISC"
 }
