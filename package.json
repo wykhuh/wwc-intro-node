@@ -10,10 +10,14 @@
     "express-handlebars": "^3.0.0",
     "moment": "^2.13.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "eslint": "^2.8.0",
+    "eslint-config-airbnb": "^7.0.0"
+  },
   "scripts": {
     "dev": "NODE_ENV=development nodemon server.js",
-    "start": "NODE_ENV=production node server.js"
+    "start": "NODE_ENV=production node server.js",
+    "lint": "node_modules/.bin/eslint ."
   },
   "author": "",
   "license": "ISC"
