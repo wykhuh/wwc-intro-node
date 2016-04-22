@@ -29,9 +29,9 @@ app.get('/', function (req, res) {
   res.render('home', { title: 'My Site' });
 });
 
-app.get('/projects', function(req, res) {
-  res.send('projects page')
-})
+app.get('/projects', function (req, res) {
+  res.render('projects', { title: 'My Projects' });
+});
 
 // =======================
 // server
