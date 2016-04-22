@@ -18,6 +18,8 @@ app.engine('hbs', exphbs({
 }));
 app.set('view engine', 'hbs');
 
+// set public static folder
+app.use(express.static('app/public'));
 
 // =======================
 // routes
