@@ -26,7 +26,13 @@ app.use(express.static('app/public'));
 // =======================
 
 app.get('/', function (req, res) {
-  res.render('home', { title: 'My Site' });
+  var myLinks = [
+    { url: 'http://github.com/wykhuh', text: 'Github' },
+    { url: 'http://nerdycreativity.com', text: 'Blog' },
+    { url: 'https://www.linkedin.com/in/waiyinkwan', text: 'LinkedIn' }
+  ];
+
+  res.render('home', { title: 'My Site', links: myLinks });
 });
 
 app.get('/projects', function (req, res) {

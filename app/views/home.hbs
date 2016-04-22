@@ -3,3 +3,11 @@
 <p>
   I'm Wai-Yin Kwan. I'm a mid-stack developer at a consultancy called Philosophie.
 </p>
+
+<h2>My Links</h2>
+
+<ul>
+{{#each links as |link|}}
+  <li><a href="{{link.url}}">{{link.text}}</a></li>
+{{/each}}
+</ul>
