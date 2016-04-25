@@ -1,8 +1,10 @@
 var express = require('express');
 var exphbs = require('express-handlebars');
-var axios = require('axios');
+var githubService = require('./app/services/githubService.js')();
+
 var app = express();
 var port = process.env.PORT || 3000;
+var username = 'wykhuh';
 
 // =======================
 // middleware
@@ -36,24 +38,19 @@ app.get('/', function (req, res) {
   res.render('home', { title: 'My Site', links: myLinks });
 });
 
-app.get('/projects', function (req, res) {
-  var options = {
-    headers: {
-      'User-Agent': 'wykhuh'
-    }
-  };
 
-  axios.get('https://api.github.com/users/wykhuh', options)
+app.get('/projects', function (req, res) {
+  githubService.getRepos(username)
     .then(function (results) {
-      console.log(results);
+      console.log(results.data);
     })
     .catch(function (err) {
       console.log(err);
     });
 
-  axios.get('https://api.github.com/users/wykhuh/repos', options)
+  githubService.getUser(username)
     .then(function (results) {
-      console.log(results);
+      console.log(results.data);
     })
     .catch(function (err) {
       console.log(err);
