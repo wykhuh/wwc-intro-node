@@ -1,16 +1,17 @@
 var axios = require('axios');
+require('dotenv').config();
 
 var githubService = function () {
+  var baseUrl = 'https://api.github.com';
 
-  function options (username) {
+  function options(username) {
     return {
       headers: {
-        'User-Agent': username
+        'User-Agent': username,
+        Authorization: 'token ' + process.env.GITHUB_TOKEN
       }
     };
-  };
-
-  var baseUrl = 'https://api.github.com';
+  }
 
   function getRepos(username) {
     return axios.get(baseUrl + '/users/' + username + '/repos', options(username));
