@@ -4,6 +4,7 @@
   "description": "Simple Node/Express app that displays bio page and github reposUrl. Done for Women Who Code workshop.",
   "main": "index.js",
   "dependencies": {
+    "axios": "^0.10.0",
     "express": "^4.13.4",
     "express-handlebars": "^3.0.0"
   },

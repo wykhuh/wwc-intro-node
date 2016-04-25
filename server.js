@@ -1,5 +1,6 @@
 var express = require('express');
 var exphbs = require('express-handlebars');
+var axios = require('axios');
 var app = express();
 var port = process.env.PORT || 3000;
 
@@ -36,7 +37,28 @@ app.get('/', function (req, res) {
 });
 
 app.get('/projects', function (req, res) {
-  res.render('projects', { title: 'My Projects' });
+  var options = {
+    headers: {
+      'User-Agent': 'wykhuh'
+    }
+  };
+
+  axios.get('https://api.github.com/users/wykhuh', options)
+    .then(function (results) {
+      console.log(results.data);
+      res.render(
+        'projects',
+        {
+          title: 'My Projects',
+          bio: results.data
+        }
+      );
+    })
+    .catch(function (err) {
+      console.log(err);
+    });
+
+
 });
 
 // =======================
