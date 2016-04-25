@@ -38,25 +38,19 @@ app.get('/', function (req, res) {
   res.render('home', { title: 'My Site', links: myLinks });
 });
 
-
 app.get('/projects', function (req, res) {
-  githubService.getRepos(username)
+  githubService.getGithubInfo(username)
     .then(function (results) {
-      console.log(results.data);
+      res.render('projects', {
+        title: 'My Projects',
+        bio: results.bio,
+        repos: results.repos
+      });
     })
     .catch(function (err) {
       console.log(err);
     });
 
-  githubService.getUser(username)
-    .then(function (results) {
-      console.log(results.data);
-    })
-    .catch(function (err) {
-      console.log(err);
-    });
-
-  res.render('projects', { title: 'My Projects' });
 });
 
 // =======================
