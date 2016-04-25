@@ -20,9 +20,19 @@ var githubService = function () {
     return axios.get(baseUrl + '/users/' + username, options(username));
   }
 
+  function getGithubInfo(username) {
+    return axios.all([getRepos(username), getUser(username)])
+      .then(function (results) {
+        var repos = results[0].data;
+        var bio = results[1].data;
+        return { bio: bio, repos: repos };
+      });
+  }
+
   return {
     getRepos: getRepos,
-    getUser: getUser
+    getUser: getUser,
+    getGithubInfo: getGithubInfo
   };
 };
 

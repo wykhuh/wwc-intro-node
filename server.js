@@ -44,15 +44,13 @@ app.get('/', function (req, res) {
 });
 
 app.get('/projects', function (req, res) {
-  githubService.getUser(username)
+  githubService.getGithubInfo(username)
     .then(function (results) {
-      res.render(
-        'projects',
-        {
-          title: 'My Projects',
-          bio: results.data
-        }
-      );
+      res.render('projects', {
+        title: 'My Projects',
+        bio: results.bio,
+        repos: results.repos
+      });
     })
     .catch(function (err) {
       console.log(err);
