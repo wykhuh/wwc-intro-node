@@ -1,6 +1,7 @@
 var express = require('express');
 var exphbs = require('express-handlebars');
 var githubService = require('./app/services/githubService.js')();
+var postService = require('./app/services/postService.js');
 
 var app = express();
 var port = process.env.PORT || 3000;
@@ -60,9 +61,16 @@ app.get('/projects', function (req, res) {
 app.get('/projects/:id', function (req, res) {
   var currentProjectName = req.params.id;
 
-  res.render('project', {
-    title: 'My Project: ' + currentProjectName,
-    currentProject: { name: currentProjectName }
+  postService.readFile(currentProjectName, function (err, results) {
+    var currentProject = {
+      name: currentProjectName,
+      post: results
+    };
+
+    res.render('project', {
+      title: 'My Project: ' + currentProjectName,
+      currentProject: currentProject
+    });
   });
 });
 
