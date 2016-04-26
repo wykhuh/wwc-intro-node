@@ -17,7 +17,12 @@ app.set('views', './app/views');
 app.engine('hbs', exphbs({
   extname: 'hbs',
   defaultLayout: 'main',
-  layoutsDir: './app/views/layouts'
+  layoutsDir: './app/views/layouts',
+  helpers: {
+    json: function(context) {
+      return JSON.stringify(context);
+    }
+  }
 }));
 app.set('view engine', 'hbs');
 
