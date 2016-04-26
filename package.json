@@ -14,7 +14,9 @@
     "eslint-config-airbnb": "^7.0.0"
   },
   "scripts": {
-    "lint": "node_modules/.bin/eslint ."
+    "lint": "node_modules/.bin/eslint .",
+    "dev": "NODE_ENV=development nodemon server.js",
+    "start": "NODE_ENV=production node server.js"
   },
   "author": "",
   "license": "ISC"
