@@ -55,7 +55,15 @@ app.get('/projects', function (req, res) {
     .catch(function (err) {
       console.log(err);
     });
+});
 
+app.get('/projects/:id', function (req, res) {
+  var currentProjectName = req.params.id;
+
+  res.render('project', {
+    title: 'My Project: ' + currentProjectName,
+    currentProject: { name: currentProjectName }
+  });
 });
 
 // =======================
