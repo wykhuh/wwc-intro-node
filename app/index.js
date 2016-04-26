@@ -1,10 +1,8 @@
 var express = require('express');
 var exphbs = require('express-handlebars');
 var app = express();
-var githubService = require('./services/githubService.js');
-var postService = require('./services/postService.js');
-
-var username = 'wykhuh';
+var homeController = require('./controllers/home.js');
+var projectsController = require('./controllers/projects.js');
 
 // =======================
 // middleware
@@ -19,7 +17,7 @@ app.engine('hbs', exphbs({
   defaultLayout: 'main',
   layoutsDir: './app/views/layouts',
   helpers: {
-    json: function(context) {
+    json: function (context) {
       return JSON.stringify(context);
     }
   }
@@ -33,49 +31,7 @@ app.use(express.static('app/public'));
 // routes
 // =======================
 
-app.get('/', function (req, res) {
-  var myLinks = [
-    { url: 'http://github.com/wykhuh', text: 'Github' },
-    { url: 'http://nerdycreativity.com', text: 'Blog' },
-    { url: 'https://www.linkedin.com/in/waiyinkwan', text: 'LinkedIn' }
-  ];
-
-  res.render('home', { title: 'My Site', links: myLinks });
-});
-
-app.get('/projects', function (req, res) {
-  githubService.getGithubInfo(username)
-    .then(function (results) {
-      var repos = results.repos;
-      repos.forEach(function(repo, index){
-        repos[index].hasPost = postService.fileExists(repo.name)
-      })
-      res.render('projects', {
-        title: 'My Projects',
-        bio: results.bio,
-        repos: results.repos
-      });
-    })
-    .catch(function (err) {
-      console.log(err);
-    });
-});
-
-app.get('/projects/:id', function (req, res) {
-  var currentProjectName = req.params.id;
-
-  postService.readFile(currentProjectName, function (err, results) {
-    var currentProject = {
-      name: currentProjectName,
-      post: results,
-      url: 'https://github.com/' + username + '/' + currentProjectName
-    };
-
-    res.render('project', {
-      title: 'My Project: ' + currentProjectName,
-      project: currentProject
-    });
-  });
-});
+app.use('/', homeController);
+app.use('/', projectsController);
 
 module.exports = app;
