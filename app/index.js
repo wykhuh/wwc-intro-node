@@ -3,7 +3,7 @@ var exphbs = require('express-handlebars');
 var app = express();
 var homeController = require('./controllers/home.js');
 var projectsController = require('./controllers/projects.js');
-var moment = require('moment');
+var dateHelpers = require('./utils/dateHelpers.js');
 
 // =======================
 // middleware
@@ -21,9 +21,7 @@ app.engine('hbs', exphbs({
     json: function (context) {
       return JSON.stringify(context);
     },
-    formatDate: function (date, format) {
-      return moment(date).format(format);
-    }
+    formatDate: dateHelpers.formatDate
   }
 }));
 app.set('view engine', 'hbs');
