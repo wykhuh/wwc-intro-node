@@ -47,6 +47,10 @@ app.get('/', function (req, res) {
 app.get('/projects', function (req, res) {
   githubService.getGithubInfo(username)
     .then(function (results) {
+      var repos = results.repos;
+      repos.forEach(function (repo, index) {
+        repos[index].hasPost = projectInfoService.fileExists(repo.name);
+      });
       res.render('projects', {
         title: 'My Projects',
         bio: results.bio,
@@ -87,6 +91,6 @@ app.get('/projects/:id', function (req, res) {
 // server
 // =======================
 
-app.listen(port, function(){
-  console.log('Server is running on port: ' + port)
-})
+app.listen(port, function () {
+  console.log('Server is running on port: ' + port);
+});
