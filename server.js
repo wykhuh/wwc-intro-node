@@ -1,6 +1,7 @@
 var express = require('express');
 var exphbs = require('express-handlebars');
 var githubService = require('./app/services/githubService.js');
+var projectInfoService = require('./app/services/projectInfoService.js');
 
 var app = express();
 var port = process.env.PORT || 3000;
@@ -60,9 +61,25 @@ app.get('/projects', function (req, res) {
 app.get('/projects/:id', function (req, res) {
   var currentProjectName = req.params.id;
 
-  res.render('project', {
-    title: 'My Project: ' + currentProjectName,
-    currentProject: { name: currentProjectName }
+  projectInfoService.readFile(currentProjectName, function (err, results) {
+    var currentProject = {};
+
+    if (err) {
+      currentProject = {
+        post: currentProjectName + ' is invalid project name.'
+      };
+    } else {
+      currentProject = {
+        name: currentProjectName,
+        post: results,
+        url: 'https://github.com/wykhuh/' + currentProjectName
+      };
+    }
+
+    res.render('project', {
+      title: 'My Project: ' + currentProjectName,
+      project: currentProject
+    });
   });
 });
 
