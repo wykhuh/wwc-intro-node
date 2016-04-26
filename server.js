@@ -64,12 +64,13 @@ app.get('/projects/:id', function (req, res) {
   postService.readFile(currentProjectName, function (err, results) {
     var currentProject = {
       name: currentProjectName,
-      post: results
+      post: results,
+      url: 'https://github.com/' + username + '/' + currentProjectName
     };
 
     res.render('project', {
       title: 'My Project: ' + currentProjectName,
-      currentProject: currentProject
+      project: currentProject
     });
   });
 });
