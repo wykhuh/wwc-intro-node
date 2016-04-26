@@ -47,6 +47,10 @@ app.get('/', function (req, res) {
 app.get('/projects', function (req, res) {
   githubService.getGithubInfo(username)
     .then(function (results) {
+      var repos = results.repos;
+      repos.forEach(function(repo, index){
+        repos[index].hasPost = postService.fileExists(repo.name)
+      })
       res.render('projects', {
         title: 'My Projects',
         bio: results.bio,
