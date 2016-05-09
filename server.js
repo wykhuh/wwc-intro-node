@@ -15,7 +15,12 @@ app.set('views', './app/views');
 app.engine('hbs', exphbs({
   extname: 'hbs',
   defaultLayout: 'main',
-  layoutsDir: './app/views/layouts'
+  layoutsDir: './app/views/layouts',
+  helpers: {
+    json: function (context) {
+      return JSON.stringify(context);
+    }
+  }
 }));
 app.set('view engine', 'hbs');
 
@@ -45,7 +50,6 @@ app.get('/projects', function (req, res) {
 
   axios.get('https://api.github.com/users/wykhuh', options)
     .then(function (results) {
-      console.log(results.data);
       res.render(
         'projects',
         {
